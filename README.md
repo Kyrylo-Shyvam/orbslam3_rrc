@@ -38,70 +38,64 @@ cd ../
 catkin build
 ```
 
-## 3. Run Examples
+## 3. Run Examples on our dataset (RRC2)
 
-### Mono mode with [NTU VIRAL](https://ntu-aris.github.io/ntu_viral_dataset/)'s [`eee_01.bag`](https://researchdata.ntu.edu.sg/api/access/datafile/68133):
+### Monocular mode with  [`rrc2.bag`](https://researchdata.ntu.edu.sg/api/access/datafile/68133):
 
 ```
 # In one terminal:
-roslaunch orb_slam3_ros ntuviral_mono.launch
+roslaunch orb_slam3_ros rrc_realsense_monocular.launch
 # In another terminal:
-rosbag play eee_01.bag -s 50 # The UAV starts moving at t~50s
+rosbag play rrc2.bag # 
 ```
-### Stereo mode with [KITTI](https://www.cvlibs.net/datasets/kitti/index.php)'s [`2011_09_26`](https://www.cvlibs.net/datasets/kitti/raw_data.php):
-- First, download KITTI dataset and convert the raw data into bag file following [this instruction](https://stevenliu216.github.io/2018/08/05/working-with-kitti-ros/). You can automate the downloading process using [this script](https://github.com/Deepak3994/Kitti-Dataset).
+### RGB-D mode with  [`rrc2. bag`](https://www.cvlibs.net/datasets/kitti/raw_data.php):
 - Run the example:
 ```
 # In one terminal:
-roslaunch orb_slam3_ros kitti_stereo.launch
+roslaunch orb_slam3_ros rrc_realsense_rgbd.launch
 # In another terminal:
-rosbag play kitti_2011_09_26_drive_0002_synced.bag
+rosbag play rrc2.bag
 ```
 
-### Mono-inertial mode with [EuRoC](https://projects.asl.ethz.ch/datasets/doku.php?id=kmavvisualinertialdatasets)'s [`MH_01_easy.bag`]( http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag):
+### Mono-inertial mode with [`MH_01_easy.bag`]( http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag):
+#### (Did not work smoothly for us)
 ```
 # In one terminal:
-roslaunch orb_slam3_ros euroc_mono_inertial.launch
+roslaunch orb_slam3_ros rrc_realsense_imu_mono.launch
 # In another terminal:
-rosbag play MH_01_easy.bag
+rosbag play rrc2.bag
 ```
-### Stereo-inertial mode with [TUM-VI](https://vision.in.tum.de/data/datasets/visual-inertial-dataset)'s [`dataset-corridor1_512_16.bag`](https://vision.in.tum.de/tumvi/calibrated/512_16/dataset-corridor1_512_16.bag)
+### RGBD-inertial mode with [`dataset-corridor1_512_16.bag`](https://vision.in.tum.de/tumvi/calibrated/512_16/dataset-corridor1_512_16.bag)
 ```
 # In one terminal:
-roslaunch orb_slam3_ros tum_vi_stereo_inertial.launch
+roslaunch orb_slam3_ros rrc_realsense_imu_rgbd.launch
 # In another terminal:
-rosbag play dataset-corridor1_512_16.bag
+rosbag play rrc2.bag
 ```
-### RGB-D mode with [TUM](http://vision.in.tum.de/data/datasets/rgbd-dataset/download)'s [`rgbd_dataset_freiburg1_xyz.bag`](https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xyz.bag)
+### RGB-D mode with your own Kinect Xbox 360
 ```
 # In one terminal:
-roslaunch orb_slam3_ros tum_rgbd.launch
+roslaunch orb_slam3_ros rrc_kinect.launch
 # In another terminal:
-rosbag play rgbd_dataset_freiburg1_xyz.bag
+rosbag play <name_of_your_bag>
 ```
-- **Note**: change `TUMX.yaml` to `TUM1.yaml`,`TUM2.yaml` or `TUM3.yaml` for freiburg1, freiburg2 and freiburg3 sequences respectively.
+### Monocular mode with your own Kinect Xbox 360
+```
+# In one terminal:
+roslaunch orb_slam3_ros rrc_kinect_mono.launch
+# In another terminal:
+rosbag play <name_of_your_bag>
+```
+### Monocular mode with your own camera 
+#### (Change intrinsic camera constants in yaml file)
+```
+# In one terminal:
+roslaunch orb_slam3_ros rrc_mobile_mono.launch
+# In another terminal:
+rosbag play <name_of_your_bag>
+```
 
-### RGB-D-Inertial mode with [VINS-RGBD](https://github.com/STAR-Center/VINS-RGBD)'s [`Normal.bag`](https://vision.in.tum.de/rgbd/dataset/freiburg1/rgbd_dataset_freiburg1_xyz.bag)
-- Download the bag files, for example [Normal.bag](https://star-center.shanghaitech.edu.cn/seafile/d/0ea45d1878914077ade5/).
-- Decompress the bag, run `rosbag decompress Normal.bag`.
-- Change the calibration params in `RealSense_D435i.yaml` if necessary.
-```
-# In one terminal:
-roslaunch orb_slam3_ros rs_d435i_rgbd_inertial.launch.launch
-# In another terminal:
-rosbag play Normal.bag
-```
 
-### Live stereo-inertial mode with Realsense T265
-- Modify the original `rs_t265.launch` to enable fisheye images and imu data (change `unite_imu_method` to `linear_interpolation`).
-- Run `rs-enumerate-devices -c` to get the calibration parameters and modify `config/Stereo-Inertial/RealSense_T265.yaml` accordingly. A detailed explaination can be found [here](https://github.com/shanpenghui/ORB_SLAM3_Fixed#73-set-camera-intrinsic--extrinsic-parameters).
-- Run:
-```
-# In one terminal:
-roslaunch realsense2_camera rs_t265.launch
-# In another terminal:
-roslaunch orb_slam3_ros rs_t265_stereo_inertial.launch
-```
 
 ### Save and load map 
 
@@ -141,17 +135,37 @@ rosservice call /orb_slam3/save_map [file_name]
 - `rosservice call /orb_slam3/save_traj [file_name]`: save the estimated trajectory of camera and keyframes as `[file_name]_cam_traj.txt` and  `[file_name]_kf_traj.txt` in `ROS_HOME` folder.
 
 ### Docker
+(Not tested completely)
 Provided [Dockerfile](Dockerfile) sets up an image based a ROS noetic environment including RealSense SDK
 
 To access a USB device (such as RealSense camera) inside docker container use:
 ``` bash
 docker run --network host --privileged -v /dev:/dev -it [image_name]
 ```
+## 5. Results:
+### Monocular ORB-SLAM on RRC2
+[![ORB-SLAM3](https://img.youtube.com/vi/oT5Hyu_RLBI/0.jpg)](https://youtu.be/oT5Hyu_RLBI)
+* Video showing working of ORB-SLAM3. Here, we have 2000 ORB features and 7 levels of ORB. 
+* Interestingly, ORB-SLAM3 loses way, but is able to relocalize in the last moment. 
 
-> **_NOTE:_**  `--network host` is recommended to listen to rostopics outside the container
+### Monocular ORB-SLAM on RRC2 with different ORB parameters
+[![ORB-SLAM3](https://img.youtube.com/vi/np4mIMJZ9ro/0.jpg)](https://youtu.be/np4mIMJZ9ro)
+* Video showing working of ORB-SLAM3. Here, we have 2000 ORB features and 8 levels of ORB.
+* Interestingly, ORB-SLAM3 is never lost.
 
-## To-do:
-- ~~Publish basic topics (camera pose, tracking image and point cloud)~~
-- ~~Publish more topics (odom, full map pointcloud, keyframe, etc.)~~
-- ~~Add other functions as services (map save/load, save estimated trajectory, etc.)~~
-- ~~Add docker support~~
+### Monocular ORB-SLAM on RRC2 + Colmap for post-processing
+[![ORB-SLAM3](https://img.youtube.com/vi/QnV6setiRaY/0.jpg)](https://youtu.be/QnV6setiRaY)
+* We applied Colmap given the poses coming from ORB-SLAM3. Dense reconstruction coming is great for monocular method. 
+
+### Same as previous but Poisson Mesh
+[![ORB-SLAM3](https://img.youtube.com/vi/u4ZnioRhbQM/0.jpg)](https://youtu.be/u4ZnioRhbQM)
+* Doing Poisson meshing on Dense Point cloud from last link.
+
+### Results of reconstruction from normal mobile phone
+#### Actual video
+[![ORB-SLAM3](https://img.youtube.com/vi/4YCMZwmzOUs/0.jpg)](https://youtu.be/4YCMZwmzOUs)
+#### Point cloud (ORB-SLAM3 + Colmap)
+[![ORB-SLAM3](https://img.youtube.com/vi/J8unIvbHWsE/0.jpg)](https://youtu.be/J8unIvbHWsE)
+#### Mesh (ORB-SLAM3 + Colmap)
+[![ORB-SLAM3](https://img.youtube.com/vi/OvDghpJSHFE/0.jpg)](https://youtu.be/OvDghpJSHFE)
+
