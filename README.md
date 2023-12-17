@@ -40,7 +40,7 @@ catkin build
 
 ## 3. Run Examples on our dataset (RRC2)
 
-### Monocular mode with  [`rrc2.bag`](https://researchdata.ntu.edu.sg/api/access/datafile/68133):
+### Monocular mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
 
 ```
 # In one terminal:
@@ -48,7 +48,7 @@ roslaunch orb_slam3_ros rrc_realsense_monocular.launch
 # In another terminal:
 rosbag play rrc2.bag # 
 ```
-### RGB-D mode with  [`rrc2. bag`](https://www.cvlibs.net/datasets/kitti/raw_data.php):
+### RGB-D mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
 - Run the example:
 ```
 # In one terminal:
@@ -57,15 +57,15 @@ roslaunch orb_slam3_ros rrc_realsense_rgbd.launch
 rosbag play rrc2.bag
 ```
 
-### Mono-inertial mode with [`MH_01_easy.bag`]( http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag):
-#### (Did not work smoothly for us)
+### Mono-inertial mode with [`rrc2.bag`]( https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
+#### (Did not work smoothly for us, however worked with EuRoC dataset)
 ```
 # In one terminal:
 roslaunch orb_slam3_ros rrc_realsense_imu_mono.launch
 # In another terminal:
 rosbag play rrc2.bag
 ```
-### RGBD-inertial mode with [`dataset-corridor1_512_16.bag`](https://vision.in.tum.de/tumvi/calibrated/512_16/dataset-corridor1_512_16.bag)
+### RGBD-inertial mode with [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf)
 ```
 # In one terminal:
 roslaunch orb_slam3_ros rrc_realsense_imu_rgbd.launch
