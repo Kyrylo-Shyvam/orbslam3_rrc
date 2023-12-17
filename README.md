@@ -1,4 +1,4 @@
-# ORB-SLAM3-ROS
+# ORB-SLAM3-ROS with P3DX, RealSense D455, and Mobile Phone Camera
 
 A ROS implementation of [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) V1.0 that focuses on the ROS part.
 
@@ -40,7 +40,7 @@ catkin build
 
 ## 3. Run Examples on our dataset (RRC2)
 
-### Monocular mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
+### Monocular mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBKxTmOzsv9cbWCFdofPdFTQ):
 
 ```
 # In one terminal:
@@ -48,7 +48,7 @@ roslaunch orb_slam3_ros rrc_realsense_monocular.launch
 # In another terminal:
 rosbag play rrc2.bag # 
 ```
-### RGB-D mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
+### RGB-D mode with  [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBKxTmOzsv9cbWCFdofPdFTQ):
 - Run the example:
 ```
 # In one terminal:
@@ -57,7 +57,7 @@ roslaunch orb_slam3_ros rrc_realsense_rgbd.launch
 rosbag play rrc2.bag
 ```
 
-### Mono-inertial mode with [`rrc2.bag`]( https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf):
+### Mono-inertial mode with [`rrc2.bag`]( https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBKxTmOzsv9cbWCFdofPdFTQ):
 #### (Did not work smoothly for us, however worked with EuRoC dataset)
 ```
 # In one terminal:
@@ -65,7 +65,7 @@ roslaunch orb_slam3_ros rrc_realsense_imu_mono.launch
 # In another terminal:
 rosbag play rrc2.bag
 ```
-### RGBD-inertial mode with [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBuTb8-77ohZun10uEvyl8zw?e=Lq80Uf)
+### RGBD-inertial mode with [`rrc2.bag`](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBKxTmOzsv9cbWCFdofPdFTQ)
 ```
 # In one terminal:
 roslaunch orb_slam3_ros rrc_realsense_imu_rgbd.launch
@@ -145,7 +145,7 @@ docker run --network host --privileged -v /dev:/dev -it [image_name]
 ## 5. Results:
 ### Monocular ORB-SLAM on RRC2
 [![ORB-SLAM3](https://img.youtube.com/vi/oT5Hyu_RLBI/0.jpg)](https://youtu.be/oT5Hyu_RLBI)
-* Video showing working of ORB-SLAM3. Here, we have 2000 ORB features and 7 levels of ORB. 
+* Video showing working of ORB-SLAM3. Here, we have 2000 ORB features and 7 levels of ORB.
 * Interestingly, ORB-SLAM3 loses way, but is able to relocalize in the last moment. 
 
 ### Monocular ORB-SLAM on RRC2 with different ORB parameters
@@ -169,3 +169,7 @@ docker run --network host --privileged -v /dev:/dev -it [image_name]
 #### Mesh (ORB-SLAM3 + Colmap)
 [![ORB-SLAM3](https://img.youtube.com/vi/OvDghpJSHFE/0.jpg)](https://youtu.be/OvDghpJSHFE)
 
+## 6. Other pipelines:
+
+We have also done SLAM on given dataset using [`Voxblox`](https://github.com/fine-man/voxblox_rrc) and
+[`Rtabmap`](https://github.com/fine-man/rtabmap-rrc). Check them out too.
