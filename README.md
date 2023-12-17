@@ -1,8 +1,15 @@
 # ORB-SLAM3-ROS with P3DX, RealSense D455, and Mobile Phone Camera
 
-A ROS implementation of [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) V1.0 that focuses on the ROS part.
+This repo contains the launch and config files to make ORB-SLAM3 run in ROS-Noetic with RRC setup on a P3DX with RealSenseD455. Additional files are provided to make it work with Kinect Xbox 360 and calibrated camera of mobile phone. We show the results of Slam and post-processing (dense reconstruction) with Colmap.
 
-This package uses ```catkin build```. Tested on Ubuntu 20.04.
+We use a ROS [implementation](https://github.com/thien94/orb_slam3_ros.git) of [ORB-SLAM3](https://github.com/UZ-SLAMLab/ORB_SLAM3) V1.0 that focuses on the ROS part. This package uses ```catkin build```. Tested on Ubuntu 20.04.
+
+## 0. Other pipelines:
+
+We have also done SLAM on given [datasets](https://iiitaphyd-my.sharepoint.com/:f:/g/personal/kyrylo_shyvam_students_iiit_ac_in/En_-qa3Dma9KiKjrWnTvYBgBKxTmOzsv9cbWCFdofPdFTQ) (which we call RRC1 and RRC2) using [`Voxblox`](https://github.com/fine-man/voxblox_rrc)  and
+[`Rtabmap`](https://github.com/fine-man/rtabmap-rrc). Check them out too.
+
+
 ## 1. Prerequisites
 ### Eigen3
 ```
@@ -31,6 +38,7 @@ Install `hector-trajectory-server` to visualize the real-time trajectory of the 
 sudo apt install ros-[DISTRO]-hector-trajectory-server
 ```
 ## 2. Installation
+
 ```
 cd ~/catkin_ws/src
 git clone https://github.com/thien94/orb_slam3_ros.git
@@ -169,7 +177,4 @@ docker run --network host --privileged -v /dev:/dev -it [image_name]
 #### Mesh (ORB-SLAM3 + Colmap)
 [![ORB-SLAM3](https://img.youtube.com/vi/OvDghpJSHFE/0.jpg)](https://youtu.be/OvDghpJSHFE)
 
-## 6. Other pipelines:
 
-We have also done SLAM on given dataset using [`Voxblox`](https://github.com/fine-man/voxblox_rrc) and
-[`Rtabmap`](https://github.com/fine-man/rtabmap-rrc). Check them out too.
